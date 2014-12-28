@@ -1,0 +1,30 @@
+License is GPLv3. See the LICENSE file.
+
+tpl_maker.py created by Denise M Kilburg for the Gunner Lab at
+CUNY-City College for the generation of ligand topology files for use in
+MCCE.
+
+tpl_maker.py requires a protein data bank file, ligand code, chain id, and
+charge.  For example:
+
+tpl_maker.py 4Q6T.pdb PO4 A -3
+
+At the moment, the charge represents the most negative charge on an ion
+and it dictates the amount of conformers made. For example: in the above
+PO4 example, charge = -3 will create a PO401(neutral conformer), PO4-1,
+PO4-2,PO4-3 conformers. At the moment, the charge also specifies the
+number of hydrogens to be removed from the neutral conformer.  At present,
+the program removes hydrogens from hydroxyl groups. If there are no
+hydroxyl groups it will remove hydrogens starting from H1, H2,...
+The add_hydrogens function adds hydrogens in 2 ways. If an atom is connected
+to 2 or more atoms, it looks at the angles that subtend them and assigns
+orbitals based on geometry:
+
+sp3 == tetrahedral, sp2 == trigonal planar, sp == linear.
+
+It then adds the proper number of hydrogen atoms to fit the geometry. 
+If an atom only has one connection (terminal), it calculates bond distance
+and looks for that bond distance in the bond_table and assigns a hybridization
+based on geometry.
+
+Send any questions or comments to: dmkilburg@gmail.com
